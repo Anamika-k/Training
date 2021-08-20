@@ -1,0 +1,294 @@
+Linux basic commands....
+1. pwd(present /current working directory):-It is used to find out th path of the current working directory.
+e.g
+beryl@beryl:~$ pwd
+/home/beryl
+
+2. cd(Change Directory): It is used to navigate through directories.
+using command:
+s2.1)cd /home/beryl/Desktop
+2.2)cd .. (To navigate to onedirectory back)
+2.3)cd - (To navigate just back to previous directory)
+2.4)cd ~ ( To navigatwe to your home directory)
+2.5)cd ../..(2 level back )
+2.6)cd /: (To navigate to root directory)
+
+3. ls(list):- to show the list of all data at same directory
+using command 
+3.1)ls -t(last modified file display first)
+3.2)ls -th(give file name with human readable form).
+3.3)ls -a(include hidden files shows all)
+3.4)ls -r(show all files and directory and sub files as well)
+3.5)ls -al(show all the file information like permission,size of directory files)
+3.7)ls -s(show total count of sub directories).
+
+4. mkdir(Make directory):- It is used to new create the directory.
+using command :-
+mkdir directory_name  
+4.1) mkdir -p<"directory_name">/<"other_directory"> (it is used to make two level directory ahead )
+4.2) mkdir -p <>/<>/<> (same as above one but make 3 level directory)
+
+5. rmdir(remove directory):- It is used to remove the directory
+ $ rmdir <directory name> (it can delete only one level black directory)
+
+6. rm (remove file):- It is used to removing a file.
+$rm <file name> (it can remove files and their data)
+beryl@beryl:~/Desktop$ rm anamika.txt
+
+7.whoami -- (is show the user name or can say which user loged in)
+usind command:-
+  whoami 
+beryl@beryl:~/Desktop$ whoami
+beryl
+
+8.cat :- sort of concatination means it can show text file data as it is on terminal
+8.1) cat file name.txt (show file data if file not present then not create file)
+8.2) cat > file name.txt (insert the text in file)
+  beryl@beryl:~/Desktop$ cat > annu
+  hello there 
+  ^C
+8.3) cat file1 > file2 (copy data of file1 in file2 and overwrite previous data)
+8.4) cat file1 >> file2 (copy data and apend in file2)
+  beryl@beryl:~/Desktop$ cat  kaushik.txt > sharma.txt
+  beryl@beryl:~/Desktop$ cat  sharma.txt 
+  hello there 
+8.5) cat <file1 (show text of file as it is on terminal and if not have file then not create)
+ beryl@beryl:~/Desktop$ cat < sharma.txt 
+ hello there 
+8.6) cat file1 |more (to show all text if by chance no show all text by other command)
+8.7) cat file1 |less (show text in a editor form)
+8.9) cat file file1 |sort > file2 (sort text of file file1 and copy in file2)
+
+9. mv(move):-use to move file from current directory to other location
+     mv <file name> <Path>
+
+10.  wc(word count) :-use to count words, lines, characters, bytes of a file.
+10.1) wc -w <file name>.txt (for total words in file)
+10.2) wc -l <file name>.txt (for total lines in file)
+10.3) wc -c <file name>.txt (for total charectors in file)
+10.4) wc <file name>.txt (for all total words, lines, charectors in file)
+
+11. uname:- This command used to show system details like which kernal is working and all sytem details.
+11.1) uname (is use to gave kernal name)
+11.2) uname -r (os type like version number and genric or like that)
+11.3) uname -a (all information like kernal, os version, os name, date of configration etc)
+
+12. chmod:- This command is use to change permisions like file can be execute by admine group or public
+        (chmode have some fetures like ---
+            admin  --- starting part --- rwx
+            group  --- Second part   --- rx
+            public --- Third part    --- x
+12.1) chmod +x <file name> this command use to give executable permision of file to every one like admin, group and public.
+12.2)  chmode 764 <file name>
+        Executable --- 1
+        Writable   --- 2
+        Readable   --- 4
+        ----------------
+        admine --- rwx   2 + 1 = 3
+        group  --- rw   4 = 4
+        public --- r    1 = 1
+        so thats why e  use 341 to make command wx - r - x to the file.
+
+13. diff :-This command is to get diffrence in between files and directries as well only at same location like which file have what
+        diffrent with other or same as with directories.
+13.1) diff <file name>.txt <other file name>.txt (for txt files to get line number and what diffrent line in files)
+13.2) diff <directory name>.txt <other directoy name>.txt
+
+
+14) free:- This command give the memory information in table like Ram and swap.
+    14.1 free (it will give all the table details with digits).
+    14.2 free -h (it will give all the table details with the sort form like in mbs gbs etc).
+
+
+15) find :-This command use to find the file or directory by its name or work as ls if not gave any predict like "find -name" if not found 
+        then will not give any error.
+    15.1 find (this will give all files name at that location)
+    15.2 find -name <file/directory name > (will gave file name or directory which is present in system)
+
+
+16) groups :- This will show the name of team or group like admin, super user etc.
+    groups
+
+
+17. grep:- Is use to pattern matching.
+    syntax -grep -[option] <file name>.txt
+    (from this file pattern will find the particular character or match and display the line of matched characters)
+17.1) grep --help (will open manual or can say all possible option can be use in grep command)
+17.2) grep -i "pattern" <file name>.txt (check the pattern in the whole file and show lines with pattern)
+
+
+18.gzip:- This command is use to compress the file its is more popular then zip by this you can either delete original file or it will 
+        delete autometically.
+    syntax -- gzip [option] <file name>
+18.1) gzip <file name>.txt (this command will compress the file and delete the original file)
+18.2) gzip -f <file name>.txt (sometime a file can't compress as already have the same compressed file at the same location the we 
+                    use -f as forcefully compress)
+18.3) gzip -k <file name>.txt (is use to keep the original file with compressed file)
+18.4) gzip -l <compressed file>.gz (is use to show the gzip license)
+18.5) gzip -[1 - 9] <file name>.txt (this will make speed in compression only how lower number have faster speed then the other 
+                        higher numbers.)
+18.6) zip -v <file name>txt (it will show the reduced percentage with original size)
+18.7)gzip -d <compressed file name>.gz (is use to decompress the compressed file)
+
+
+19.df:- Show the system disc space usage.
+
+
+20. cp:- Stands for copy
+    syntax - cp <file name> [path of new location where you want to copy file]
+    cp text.txt /home/User/Desktop
+
+
+21) Sudo :- Stands for supper user Do means need to perform via super user.
+    sudo apt-get update
+    sudp apt-get install <file name/ software name>
+
+
+22) apt-get :- It is kind of package handler via, retrive information of poackage, install or remove.
+    apt-get update
+    apt-get --version
+
+
+23. touch This command is use to make text file with txt extension or can say text file these both the terms are diffrent.
+23.1) touch <file name> or <file name>.txt (both file will contain text but diffrent with extensions)
+
+
+24. netstat :-It is a net tool package with we an get all active internet establised connections like server connections.
+24.1) netstat (show all active internet servers)
+24.2) netstat -a (show all active internet servers or established connections)
+24.3) netstat -atu (show all active internet servers or established connections as above one but only the table of connection types not the whole detail of wich package connect with which port number.
+
+
+25. cp:- Copy command
+25.1)man cp --- will show all manual of cp and to quit we will use q
+25.2)cp <file1> <file2> (copy file one into file2 and if not present then create file)
+25.3)cp <file1> <dir1 at same location> (copy file in at same located directory) 
+25.4)cp <file1> <fil2> <dir at same location> (same as above but copy both file)
+23.5) By Absolute and relative path
+        cp ../test.txt ../test2.txt .
+        (Relative path file copy at relative path(. is for current location and .. is for just one level back location))
+        cp ../test.txt ../test2.txt /home/beryl/Desktop/Anamika
+        (relative path to absolute path)
+25.6)Resurcive --
+        1. cp -r <dir1> <dir2> (dir2 not exist)
+           (make dir2 and copy dir1's all inside file to dir2)
+        2. cp -r <dir1> <dir2> (dir2 is not exist)
+           (copy dir1 directory in dir2)
+25.7)cp -vr dir1 dir2 (is show with processing details like first which one is copying and then which one)
+
+
+26. Scp Secure copy same as cp
+26.1) scp <filename> <host name>@<ip of server>:<path where want to save>
+26.2)for directory---
+       scp -r <directory> <host name>@<ip of server>:<path where want to save>
+26.3) By diffrent port number then ssh -22
+    scp -r <dir> <host name>@<ip of server>:<path where want to save> -P 1234
+
+                                                
+
+
+                                            VIM COMMANDS:-
+vi editor
+The default editor that comes with the UNIX operating system is called vi (visual editor). Using vi editor, we can edit an existing file or create a new file from scratch. we can also use this editor to just read a text file.
+Syntax:
+
+    vi filename: Creates a new file if it already not exist, otherwise opens existing file.
+    vi -R filename : Opens an existing file in read only mode.
+    view filename : Opens an existing file in read only mode.
+
+
+Moving within a File(Navigation):
+
+
+    k : Moves the cursor up one line.
+    j : Moves the cursor down one line.
+    h : Moves the cursor to the left one character position.
+    l : Moves the cursor to the right one character position.
+    0 or | : Positions cursor at beginning of line.
+    $ : Positions cursor at end of line.
+    W : Positions cursor to the next word.
+    B : Positions cursor to previous word.
+    ( : Positions cursor to beginning of current sentence.
+    ) : Positions cursor to beginning of next sentence.
+    H : Move to top of screen.
+    nH : Moves to nth line from the top of the screen.
+    M : Move to middle of screen.
+    L : Move to bottom of screen.
+    nL : Moves to nth line from the bottom of the screen.
+    colon along with x : Colon followed by a number would position the cursor on line number represented by x.
+
+Editing and inserting command:-
+    i : Inserts text before current cursor location.
+    I : Inserts text at beginning of current line.
+    a : Inserts text after current cursor location.
+    A : Inserts text at end of current line.
+    o : Creates a new line for text entry below cursor location.
+    O : Creates a new line for text entry above cursor location.
+    r : Replace single character under the cursor with the next character typed.
+    R : Replaces text from the cursor to right.
+    s : Replaces single character under the cursor with any number of characters.
+    S :Replaces entire line.
+
+
+Deleting Characters:
+        X Uppercase: Deletes the character before the cursor location.
+        x Lowercase : Deletes the character at the cursor location.
+        Dw : Deletes from the current cursor location to the next word.
+        d^ : Deletes from current cursor position to the beginning of the line.
+        d$ : Deletes from current cursor position to the end of the line.
+        Dd : Deletes the line the cursor is on.
+
+Save and Exit Commands of the ex Mode : Need to press [Esc] key followed by the colon (:) before typing the following commands:
+        q : Quit
+        q! : Quit without saving changes i.e. discard changes.
+        r fileName : Read data from file called fileName.
+        wq : Write and quit (save and exit).
+        w fileName : Write to file called fileName (save as).
+        w! fileName : Overwrite to file called fileName (save as forcefully).
+        !cmd : Runs shell commands and returns to Command mode.
+
+Searching and Replacing in (ex Mode): vi also has powerful search and replace capabilities. 
+The formal syntax for searching is:
+
+:s/string used for search the pattern.
+:s/string/changed_string use to replace the string.
+
+
+
+SHUTDOWN SERVER BY LINUX COMMANDS:-
+SYNTAX :- shutdown [OPTION] [TIME] [MESSAGE]
+shutdown now :- will shutdown system immediately.
+shutdown -h now ":- h stands for halt.now stands for rigth away.
+shutdown -h +5 "server is going down upgrade . Please save your work."
+shutdown -r +5 "server will restart in 5 minutes.Please save your work."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
