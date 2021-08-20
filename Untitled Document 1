@@ -1,0 +1,257 @@
+git commands :-
+
+##git config
+
+Usage: git config –global user.name “[name]”  
+
+Usage: git config –global user.email “[email address]”  
+
+This command sets the author name and email address respectively to be used with your commits.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git config user.name 'Anamika'
+beryl@beryl:~/Desktop/Anamika/Training$ git config user.email 'anamikakaushik269@gmail.com'
+
+
+##git init
+
+Usage: git init [repository name]
+
+This command is used to start a new repository.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git init
+
+##git clone
+
+Usage: git clone [url]  
+
+This command is used to obtain a repository from an existing URL.
+
+
+
+##git add
+
+Usage: git add [file]  
+
+This command adds a file to the staging area.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git ad
+
+
+##git commit
+
+Usage: git commit -m “[ Type in the commit message]”  
+
+This command records or snapshots the file permanently in the version history.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git commit -m "first commit"
+
+Usage: git commit -a  
+
+This command commits any files you’ve added with the git add command and also commits any files you’ve changed since then.git diff
+
+beryl@beryl:~/Desktop/Anamika/Training$ git commit -a
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+
+
+##git diff
+
+Usage: git diff  
+This command shows the file differences which are not yet staged.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git diff
+
+ Usage: git diff –staged 
+This command shows the differences between the files in the staging area and the latest version present.
+
+Usage: git diff [first branch] [second branch]  
+This command shows the differences between the two branches mentioned.
+
+
+
+##git reset
+
+Usage: git reset [file]  
+This command unstages the file, but it preserves the file contents.
+
+Usage: git reset [commit]  
+This command undoes all the commits after the specified commit and preserves the changes locally.
+
+Usage: git reset –hard [commit]  
+This command discards all history and goes back to the specified commit.
+
+##git status
+
+Usage: git status  
+This command lists all the files that have to be committed.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+
+
+##git rm
+
+Usage: git rm [file]  
+This command deletes the file from your working directory and stages the deletion.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git rm f1
+rm 'f1'
+
+
+##git log
+
+Usage: git log  
+This command is used to list the version history for the current branch.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git log
+commit 317148fe5b2cdbeffc84fe83e691988401e91c89 (HEAD -> main)
+Author: Anamika <anamikakaushik269@gmail.com>
+Date:   Fri Aug 20 16:36:16 2021 +0530
+
+    remove file
+
+commit 5c491c361046ce33ab964f3f33a55a2f644923e7 (origin/main)
+Author: Anamika <anamikakaushik269@gmail.com>
+Date:   Fri Aug 20 15:43:29 2021 +0530
+
+    first commit
+
+
+
+##git show
+
+Usage: git show [commit]  
+This command shows the metadata and content changes of the specified commit.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git show 317148fe5b2cdbeffc84fe83e691988401e91c89
+commit 317148fe5b2cdbeffc84fe83e691988401e91c89 (HEAD -> main)
+Author: Anamika <anamikakaushik269@gmail.com>
+Date:   Fri Aug 20 16:36:16 2021 +0530
+
+    remove file
+
+diff --git a/f1 b/f1
+new file mode 100644
+index 0000000..ce01362
+--- /dev/null
++++ b/f1
+@@ -0,0 +1 @@
++hello
+
+
+##git branch
+
+Usage: git branch  
+This command lists all the local branches in the current repository.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git branch
+* main
+
+Usage: git branch [branch name]  
+This command creates a new branch.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git branch branch_1
+beryl@beryl:~/Desktop/Anamika/Training$ git branch
+  branch_1
+* main
+
+Usage: git branch -d [branch name]  
+This command deletes the feature branch.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git branch -d branch_1
+Deleted branch branch_1 (was 317148f).
+
+git checkout
+
+Usage: git checkout [branch name]  
+This command is used to switch from one branch to another.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git branch branch_1
+beryl@beryl:~/Desktop/Anamika/Training$ git branch branch_2
+beryl@beryl:~/Desktop/Anamika/Training$ git branch
+  branch_1
+  branch_2
+* main
+beryl@beryl:~/Desktop/Anamika/Training$ git checkout branch_1
+D	f1
+Switched to branch 'branch_1'
+
+
+Usage: git checkout -b [branch name]  
+This command creates a new branch and also switches to it.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git checkout -b branch_3
+D	f1
+Switched to a new branch 'branch_3'
+
+##git merge
+
+Usage: git merge [branch name]  
+This command merges the specified branch’s history into the current branch.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git merge branch_3
+Already up to date.
+
+##git remote
+
+Usage: git remote add [variable name] [Remote Server Link]  
+This command is used to connect your local repository to the remote server.
+
+##git push
+
+Usage: git push [variable name] master  
+This command sends the committed changes of master branch to your remote repository.
+
+beryl@beryl:~/Desktop/Anamika/Training$ git push -u origin main
+
+Usage: git push [variable name] [branch]  
+This command sends the branch commits to your remote repository.
+
+Usage: git push –all [variable name]  
+This command pushes all branches to your remote repository.
+
+Usage: git push [variable name] :[branch name]  
+This command deletes a branch on your remote repository.
+
+Usage: git push [variable name] :[branch name]  
+This command deletes a branch on your remote repository.
+
+##git pull
+
+Usage: git pull [Repository Link]  
+This command fetches and merges changes on the remote server to your working directory.
+
+##git stash
+
+Usage: git stash save  
+This command temporarily stores all the modified tracked files.
+
+Usage: git stash pop  
+This command restores the most recently stashed files.
+
+Usage: git stash list  
+This command lists all stashed changesets
+
+Usage: git stash drop  
+This command discards the most recently stashed changeset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
