@@ -1,0 +1,707 @@
+DATABASE - POSTGRE SQL COMMANDS:-
+
+
+Database = It is a collection of data in form of tables which stores data in form of rows(tuples) and columns(attributes).
+
+1) INSTALLATION( Postgresql in ubuntu (linux))
+sudo apt-get update
+sudo get-apt install postgresql
+
+Commands:-
+
+2) beryl@beryl:~$ service postgresql status
+● postgresql.service - PostgreSQL RDBMS
+   Loaded: loaded (/lib/systemd/system/postgresql.service; enabled; vendor prese
+   Active: active (exited) since Mon 2021-08-23 12:58:54 IST; 1h 18min ago
+  Process: 1088 ExecStart=/bin/true (code=exited, status=0/SUCCESS)
+ Main PID: 1088 (code=exited, status=0/SUCCESS)
+
+Aug 23 12:58:54 beryl systemd[1]: Starting PostgreSQL RDBMS...
+Aug 23 12:58:54 beryl systemd[1]: Started PostgreSQL RDBMS.
+lines 1-8/8 (END)
+
+3) sudo su postgres = for first time to use postgresql use postgres username
+beryl@beryl-Latitude-E6520:~$ sudo su postgres
+[sudo] password for beryl: 
+
+4) psql = for command line (it is a command line tool)
+
+5) \l = to show/list existing databases
+postgres=# \l
+                               List of databases
+     Name      |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+---------------+----------+----------+---------+-------+-----------------------
+ assignment    | postgres | UTF8     | en_IN   | en_IN | 
+ emp_managment | postgres | UTF8     | en_IN   | en_IN | 
+ postgres      | postgres | UTF8     | en_IN   | en_IN | 
+ template0     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ template1     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ test          | postgres | UTF8     | en_IN   | en_IN | 
+(6 rows)
+
+    
+
+
+6) \du = it list out all the users present in postgres
+                               List of roles
+ Role name |                         Attributes                         | Member of 
+-----------+------------------------------------------------------------+-----------
+ anamika   |                                                            | {}
+ postgres  | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+~
+
+7) ALTER USER postgres WITH PASSWORD 'password'; = This will alter the default password which is postgres
+ALTER ROLE = means you have successfully altered the password
+
+8) CREATE USER Anamika WITH PASSWORD 'password'; = create a new user named anamika with your desired password.
+postgres=# CREATE USER Anamika WITH PASSWORD 'password';
+CREATE ROLE
+
+9) ALTER USER Anamika WITH SUPERUSER; = This will alter user with superuser privileges.
+postgres=# ALTER USER Anamika WITH SUPERUSER;
+ALTER ROLE
+
+10) DROP USER username = This will delete user.
+
+11) man psql = This command shows full description about postgreSQL and syntax , commands etc.
+
+12) \help = It displays all commands necessary in postgreSQL
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1)CREATE Database :- create the database
+Syntax
+createdb [option...] [dbname [description]];
+
+postgres=# CREATE DATABASE testdb;
+postgres-# 
+
+2) testdb=# \l :- list all database.
+                               List of databases
+     Name      |  Owner   | Encoding | Collate | Ctype |   Access privileges   
+---------------+----------+----------+---------+-------+-----------------------
+ assignment    | postgres | UTF8     | en_IN   | en_IN | 
+ emp_managment | postgres | UTF8     | en_IN   | en_IN | 
+ postgres      | postgres | UTF8     | en_IN   | en_IN | 
+ template0     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ template1     | postgres | UTF8     | en_IN   | en_IN | =c/postgres          +
+               |          |          |         |       | postgres=CTc/postgres
+ test          | postgres | UTF8     | en_IN   | en_IN | 
+ testdb        | postgres | UTF8     | en_IN   | en_IN | 
+(7 rows)
+
+3) DROP Database :- Delete the database.
+sytax
+DROP DATABASE [ IF EXISTS ] name;
+
+testdb=# create database anamika;
+CREATE DATABASE
+testdb=# drop database anamika;
+DROP DATABASE
+
+4)CREATE Table:- it creates the table.
+Syntax
+CREATE TABLE table_name(
+   column1 datatype,
+   column2 datatype,
+   column3 datatype,
+   .....
+   columnN datatype,
+   PRIMARY KEY( one or more columns )
+);
+
+testdb=# CREATE TABLE COMPANY(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+
+   ADDRESS        CHAR(50),
+   SALARY         REAL,
+   JOIN_DATE   DATE
+);
+CREATE TABLE
+
+5) DROP Table:- is used to remove a table definition and all associated data, indexes, rules, triggers, and constraints for that table.
+Syntax
+DROP TABLE table_name;
+
+6) SCHEMA :- A schema is a named collection of tables. 
+Syntax :- 
+CREATE SCHEMA name;
+
+Syntax to Drop Schema
+DROP SCHEMA myschema;
+To drop a schema if it is empty (all objects in it have been dropped), use the command.
+
+7) Insert Command:- use to insert the values in the table.
+Syntax
+INSERT INTO TABLE_NAME (column1, column2, column3,...columnN)
+VALUES (value1, value2, value3,...valueN);
+
+testdb=# INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY,JOIN_DATE) VALUES (1, 'Paul', 32, 'California', 20000.00,'2001-07-13');
+so on...
+
+8) SELECT Command:-used to fetch the data from a database table, which returns data in the form of result table.
+Syntax
+SELECT column1, column2, columnN FROM table_name;
+testdb=# select * from company;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  1 | Paul  |  32 | California                                         |  20000
+  3 | Teddy |  23 | Norway                                             |  15000
+  8 | Paul  |  24 | Houston                                            |  20000
+  9 | James |  44 | Norway                                             |   5000
+ 10 | James |  45 | Texas                                              |   5000
+(5 rows)
+
+testdb=# select id, name  from company;
+ id | name  
+----+-------
+  1 | Paul
+  3 | Teddy
+  8 | Paul
+  9 | James
+ 10 | James
+(5 rows)
+
+9) OPERATORS = used to specify condition. ex=> =,>,<,+,-,*,/,%,^,!,!= or <> , AND , NOT , OR , & , | , ~ , << , >> , #
+
+10) EXPRESSION Command:-An expression is a combination of one or more values, operators, and PostgresSQL functions that evaluate to a value.
+Syntax
+SELECT column1, column2, columnN
+FROM table_name
+WHERE [CONDITION | EXPRESSION];
+
+testdb=# SELECT * FROM COMPANY WHERE SALARY = 20000;
+ id | name | age |                      address                       | salary 
+----+------+-----+----------------------------------------------------+--------
+  1 | Paul |  32 | California                                         |  20000
+  8 | Paul |  24 | Houston                                            |  20000
+(2 rows)
+
+testdb=# SELECT (15 + 6) AS ADDITION ;
+addition
+----------
+       21
+(1 row)
+SELECT COUNT(*) AS "RECORDS" FROM COMPANY;
+RECORDS
+---------
+       7
+(1 row)
+
+11)WHERE Clause:- used to specify a condition while fetching the data from single table or joining with multiple tables.
+Syntax
+SELECT column1, column2, columnN
+FROM table_name
+WHERE [search_condition]
+
+testdb=# SELECT * FROM COMPANY WHERE AGE >= 25 AND SALARY >= 15000;
+ id | name | age |                      address                       | salary 
+----+------+-----+----------------------------------------------------+--------
+  1 | Paul |  32 | California                                         |  20000
+(1 row)
+
+12) AND and OR:- used to combine multiple conditions to narrow down selected data in a PostgreSQL statement.
+Syntax:-
+SELECT column1, column2, columnN
+FROM table_name
+WHERE [condition1] AND [condition2]...AND [conditionN];
+
+testdb=# SELECT * FROM COMPANY WHERE AGE >= 25 AND SALARY >= 6000;
+ id | name | age |                      address                       | salary 
+----+------+-----+----------------------------------------------------+--------
+  1 | Paul |  32 | California                                         |  20000
+(1 row)
+
+The OR Operator:-using OR operator, complete condition will be assumed true when at least any of the conditions is true.
+Syntax :-
+SELECT column1, column2, columnN
+FROM table_name
+WHERE [condition1] OR [condition2]...OR [conditionN];
+
+testdb=# SELECT * FROM COMPANY WHERE AGE >= 25 or SALARY >= 5000;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  1 | Paul  |  32 | California                                         |  20000
+  3 | Teddy |  23 | Norway                                             |  15000
+  8 | Paul  |  24 | Houston                                            |  20000
+  9 | James |  44 | Norway                                             |   5000
+ 10 | James |  45 | Texas                                              |   5000
+(5 rows)
+
+13) Update Query:-used to modify the existing records in a table. You can use WHERE clause with UPDATE query to update the selected rows.
+Syntax:-
+UPDATE table_name
+SET column1 = value1, column2 = value2...., columnN = valueN
+WHERE [condition];
+
+testdb=# UPDATE COMPANY SET SALARY = 65000 WHERE ID = 3;
+UPDATE 1
+testdb=# UPDATE COMPANY SET ADDRESS = 'Texas', SALARY=20000;
+UPDATE 5
+
+14)DELETE Query:-used to delete the existing records from a table. You can use WHERE clause with DELETE query to delete the selected rows.
+Syntax:-
+DELETE FROM table_name
+WHERE [condition];
+
+testdb=# DELETE FROM COMPANY WHERE ID = 2;
+DELETE 0
+testdb=# DELETE FROM COMPANY;
+
+15)LIKE Clause:-
+used to match text values against a pattern using wildcards.
+Syntax:-
+SELECT FROM table_name
+WHERE column LIKE 'XXXX%'
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE '%XXXX%'
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE 'XXXX_'
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE '_XXXX'
+
+or
+
+SELECT FROM table_name
+WHERE column LIKE '_XXXX_'
+
+testdb=# SELECT * FROM COMPANY WHERE AGE::text LIKE '2%';
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  8 | Paul  |  24 | Texas                                              |  20000
+  3 | Teddy |  23 | Texas                                              |  20000
+(2 rows)
+
+testdb=# SELECT * FROM COMPANY WHERE ADDRESS  LIKE '%-%';
+ id | name | age | address | salary 
+----+------+-----+---------+--------
+(0 rows)
+
+
+15)LIMIT Clause:-used to limit the data amount returned by the SELECT statement.
+Syntax:-
+SELECT column1, column2, columnN
+FROM table_name
+LIMIT [no of rows]
+testdb=# SELECT * FROM COMPANY LIMIT 4;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  1 | Paul  |  32 | Texas                                              |  20000
+  8 | Paul  |  24 | Texas                                              |  4500
+  9 | James |  44 | Texas                                              |  77000
+ 10 | James |  45 | Texas                                              |  29000
+(4 rows)
+
+testdb=# SELECT * FROM COMPANY LIMIT 3 OFFSET 1 
+testdb-# ;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  8 | Paul  |  24 | Texas                                              |  20000
+  9 | James |  44 | Texas                                              |  20000
+ 10 | James |  45 | Texas                                              |  20000
+(3 rows)
+
+16) ORDER BY Clause:-used to sort the data in ascending or descending order, based on one or more columns.
+Syntax
+SELECT column-list
+FROM table_name
+[WHERE condition]
+[ORDER BY column1, column2, .. columnN] [ASC | DESC];
+
+testdb=# SELECT * FROM COMPANY ORDER BY AGE ASC;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  3 | Teddy |  23 | leh                                                | 90000
+  8 | Paul  |  24 | Texas                                              | 20000
+  1 | Paul  |  32 | london                                             | 40000
+  9 | James |  44 | canada                                             | 27000
+ 10 | James |  45 | Texas                                              | 10000
+(5 rows)
+
+17)GROUP BY Clause:-used in collaboration with the SELECT statement to group together those rows in a table that have identical data.
+Syntax
+SELECT column-list
+FROM table_name
+WHERE [ conditions ]
+GROUP BY column1, column2....columnN
+ORDER BY column1, column2....columnN
+
+testdb=# SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY NAME;
+ name  |  sum  
+-------+-------
+ Teddy | 20000
+ Paul  | 64000
+ James | 54000
+(3 rows)
+
+testdb=# SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY NAME ORDER BY NAME;
+ name  |  sum  
+-------+-------
+ James | 54000
+ Paul  | 64000
+ Teddy | 20000
+
+18) WITH Query:-provides a way to write auxiliary statements for use in a larger query. It helps in breaking down complicated and large queries into simpler forms, which are easily readable.
+Syntax
+WITH
+   name_for_summary_data AS (
+      SELECT Statement)
+   SELECT columns
+   FROM name_for_summary_data
+   WHERE conditions <=> (
+      SELECT column
+      FROM name_for_summary_data)
+   [ORDER BY columns]
+
+testdb=# With CTE AS
+testdb-# (Select
+testdb(#  ID
+testdb(# , NAME
+testdb(# , AGE
+testdb(# , ADDRESS
+testdb(# , SALARY
+testdb(# FROM COMPANY )
+testdb-# Select * From CTE;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  3 | Teddy |  23 | houston                                            |  20000
+ 10 | James |  45 | richmond                                           |  45000
+  1 | Paul  |  32 | Texas                                              |   5000
+  8 | Paul  |  24 | norway                                             |  59000
+  9 | James |  44 | Texas                                              |   9000
+(5 rows)
+
+19) HAVING Clause:-allows us to pick out particular rows where the function's result meets some condition.
+Syntax 
+SELECT column1, column2
+FROM table1, table2
+WHERE [ conditions ]
+GROUP BY column1, column2
+HAVING [ conditions ]
+ORDER BY column1, column2
+
+testdb=# SELECT NAME FROM COMPANY GROUP BY name HAVING count(name) < 2;
+ name  
+-------
+ Teddy
+(1 row)
+
+20)DISTINCT Keyword:-used in conjunction with SELECT statement to eliminate all the duplicate records and fetching only unique records.
+SELECT DISTINCT column1, column2,.....columnN
+FROM table_name
+WHERE [condition]
+
+testdb=# SELECT DISTINCT name FROM COMPANY;
+ name  
+-------
+ Teddy
+ Paul
+ James
+(3 rows)
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+************************************************************************************************************************************************
+------------------------------------------------------------------------------------------------------------------------------------------------
+Advanced Commands 
+ 1) JOINS:- The PostgreSQL Joins clause is used to combine records from two or more tables in a database. A JOIN is a means for combining fields from two tables by using values common to each.
+
+Joins are of 5 typs-
+
+i)The CROSS JOIN
+ii)The INNER JOIN
+iii)The LEFT OUTER JOIN
+iv)The RIGHT OUTER JOIN
+v)The FULL OUTER JOIN
+
+The cross join:-A CROSS JOIN matches every row of the first table with every row of the second table
+testdb=# CREATE TABLE DEPARTMENT(
+testdb(#    ID INT PRIMARY KEY      NOT NULL,
+testdb(#    DEPT           CHAR(50) NOT NULL,
+testdb(#    EMP_ID         INT      NOT NULL
+testdb(# );
+CREATE TABLE
+testdb=# INSERT INTO DEPARTMENT (ID, DEPT, EMP_ID)
+testdb-# VALUES (1, 'IT Billing', 1 );
+INSERT 0 1
+testdb=# 
+testdb=# INSERT INTO DEPARTMENT (ID, DEPT, EMP_ID)
+testdb-# VALUES (2, 'Engineering', 2 );
+INSERT 0 1
+testdb=# 
+testdb=# INSERT INTO DEPARTMENT (ID, DEPT, EMP_ID)
+testdb-# VALUES (3, 'Finance', 7 );
+INSERT 0 1
+testdb=# SELECT EMP_ID, NAME, DEPT FROM COMPANY CROSS JOIN DEPARTMENT;
+ emp_id | name  |                        dept                        
+--------+-------+----------------------------------------------------
+      1 | Teddy | IT Billing                                        
+      1 | James | IT Billing                                        
+      1 | Paul  | IT Billing                                        
+      1 | Paul  | IT Billing                                        
+      1 | James | IT Billing                                        
+      2 | Teddy | Engineering                                       
+      2 | James | Engineering                                       
+      2 | Paul  | Engineering                                       
+      2 | Paul  | Engineering                                       
+      2 | James | Engineering                                       
+      7 | Teddy | Finance                                           
+      7 | James | Finance                                           
+      7 | Paul  | Finance                                           
+      7 | Paul  | Finance                                           
+      7 | James | Finance                                           
+(15 rows)
+
+The INNER JOIN:-
+The query compares each row of table1 with each row of table2 to find all pairs of rows, which satisfy the join-predicate
+testdb=# SELECT EMP_ID, NAME, DEPT FROM COMPANY INNER JOIN DEPARTMENT
+testdb-#         ON COMPANY.ID = DEPARTMENT.EMP_ID;
+ emp_id | name |                        dept                        
+--------+------+----------------------------------------------------
+      1 | Paul | IT Billing                                        
+(1 row)
+
+
+The LEFT OUTER JOIN:-
+For each row in table T1 that does not satisfy the join condition with any row in table T2, a joined row is added with null values in columns of T2.
+testdb=# SELECT EMP_ID, NAME, DEPT FROM COMPANY LEFT OUTER JOIN DEPARTMENT
+testdb-#    ON COMPANY.ID = DEPARTMENT.EMP_ID;
+ emp_id | name  |                        dept                        
+--------+-------+----------------------------------------------------
+      1 | Paul  | IT Billing                                        
+        | James | 
+        | Paul  | 
+        | Teddy | 
+        | James | 
+(5 rows)
+
+The RIGHT OUTER JOIN:-For each row in table T2 that does not satisfy the join condition with any row in table T1, a joined row is added with null values in columns of T1. This is the converse of a left join; the result table will always have a row for each row in T2.
+
+testdb=# SELECT EMP_ID, NAME, DEPT FROM COMPANY RIGHT OUTER JOIN DEPARTMENT
+testdb-#    ON COMPANY.ID = DEPARTMENT.EMP_ID;
+ emp_id | name |                        dept                        
+--------+------+----------------------------------------------------
+      1 | Paul | IT Billing                                        
+      2 |      | Engineering                                       
+      7 |      | Finance                                           
+(3 rows)
+
+
+
+The FULL OUTER JOIN :-For each row in table T1 that does not satisfy the join condition with any row in table T2, a joined row is added with null values in columns of T2. In addition, for each row of T2 that does not satisfy the join condition with any row in T1, a joined row with null values in the columns of T1 is added.
+
+testdb=# SELECT EMP_ID, NAME, DEPT FROM COMPANY FULL OUTER JOIN DEPARTMENT
+testdb-#    ON COMPANY.ID = DEPARTMENT.EMP_ID;
+ emp_id | name  |                        dept                        
+--------+-------+----------------------------------------------------
+      1 | Paul  | IT Billing                                        
+      2 |       | Engineering                                       
+      7 |       | Finance                                           
+        | James | 
+        | Paul  | 
+        | Teddy | 
+        | James | 
+
+
+
+
+union: use to combine two commands output.
+
+testdb=# SELECT EMP_ID, NAME, DEPT FROM COMPANY INNER JOIN DEPARTMENT
+testdb-#    ON COMPANY.ID = DEPARTMENT.EMP_ID
+testdb-#    UNION
+testdb-#       SELECT EMP_ID, NAME, DEPT FROM COMPANY LEFT OUTER JOIN DEPARTMENT
+testdb-#          ON COMPANY.ID = DEPARTMENT.EMP_ID;
+ emp_id | name  |                        dept                        
+--------+-------+----------------------------------------------------
+        | James | 
+      1 | Paul  | IT Billing                                        
+        | Teddy | 
+        | Paul  | 
+(4 rows)
+
+
+NULL Values :- A NULL value in a table is a value in a field that appears to be blank.testdb=# SELECT  ID, NAME, AGE, ADDRESS, SALARY
+testdb-#    FROM COMPANY
+testdb-#    WHERE SALARY IS NOT NULL;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  3 | Teddy |  23 | houston                                            |  20000
+ 10 | James |  45 | richmond                                           |  45000
+  1 | Paul  |  32 | Texas                                              |   5000
+  8 | Paul  |  24 | norway                                             |  59000
+  9 | James |  44 | Texas                              
+
+
+Alias :-The use of table aliases means to rename a table in a particular PostgreSQL statement. Renaming is a temporary change and the actual table name does not change in the database.
+Syntax;-
+SELECT column_name AS alias_name
+FROM table_name
+WHERE [condition];
+testdb=# SELECT C.ID, C.NAME, C.AGE, D.DEPT
+testdb-#    FROM COMPANY AS C, DEPARTMENT AS D
+testdb-#    WHERE  C.ID = D.EMP_ID;
+ id | name | age |                        dept                        
+----+------+-----+----------------------------------------------------
+  1 | Paul |  32 | IT Billing                                        
+(1 row)
+
+ALTER TABLE Command:-
+used to add, delete or modify columns in an existing table.
+
+Syntax
+ALTER TABLE table_name ADD column_name datatype;
+ALTER TABLE table_name DROP COLUMN column_name;
+ALTER TABLE table_name ALTER COLUMN column_name TYPE datatype;
+ALTER TABLE table_name MODIFY column_name datatype NOT NULL;
+
+
+testdb=# ALTER TABLE COMPANY ADD GENDER char(1);
+ALTER TABLE
+testdb=# select * from company;
+ id | name  | age |                      address                       | salary | gender 
+----+-------+-----+----------------------------------------------------+--------+--------
+  3 | Teddy |  23 | houston                                            |  20000 | 
+ 10 | James |  45 | richmond                                           |  45000 | 
+  1 | Paul  |  32 | Texas                                              |   5000 | 
+  8 | Paul  |  24 | norway                                             |  59000 | 
+  9 | James |  44 | Texas                                              |   9000 | 
+ 19 | Paul  |  32 | California                                         |  20000 | 
+(6 rows)
+
+testdb=# ALTER TABLE COMPANY DROP GENDER;
+ALTER TABLE
+testdb=# select * from company;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  3 | Teddy |  23 | houston                                            |  20000
+ 10 | James |  45 | richmond                                           |  45000
+  1 | Paul  |  32 | Texas                                              |   5000
+  8 | Paul  |  24 | norway                                             |  59000
+  9 | James |  44 | Texas                                              |   9000
+ 19 | Paul  |  32 | California                                         |  20000
+(6 rows)
+
+TRUNCATE TABLE Command:-is used to delete complete data from an existing table.
+Syntax
+TRUNCATE TABLE  table_name;
+testdb=# TRUNCATE TABLE COMPANY;
+
+VIEW :- A view can represent a subset of a real table, selecting certain columns or certain rows from an ordinary table.
+testdb=#  CREATE VIEW COMPANY_VIEW AS
+testdb-# SELECT ID, NAME, AGE
+testdb-# FROM  COMPANY;
+CREATE VIEW
+testdb=# select * from company_view;
+ id | name  | age 
+----+-------+-----
+  3 | Teddy |  23
+ 10 | James |  45
+  1 | Paul  |  32
+  8 | Paul  |  24
+  9 | James |  44
+ 19 | Paul  |  32
+(6 rows)
+
+dropping view:-DROP VIEW view_name;
+
+TRANSACTIONS:-A transaction is a unit of work that is performed against a database. 
+Transaction Control
+
+The following commands are used to control transactions −
+
+    BEGIN TRANSACTION − To start a transaction.#begin or begin transaction;
+
+    COMMIT − To save the changes, alternatively you can use END TRANSACTION command.#commit;
+
+    ROLLBACK − To rollback the changes.#rollback;
+
+testdb=# DELETE FROM COMPANY WHERE AGE = 25;
+DELETE 0
+testdb=# COMMIT;
+COMMIT
+testdb=# select * from company;
+ id | name  | age |                      address                       | salary 
+----+-------+-----+----------------------------------------------------+--------
+  3 | Teddy |  23 | houston                                            |  20000
+ 10 | James |  45 | richmond                                           |  45000
+  1 | Paul  |  32 | Texas                                              |   5000
+  8 | Paul  |  24 | norway                                             |  59000
+  9 | James |  44 | Texas                                              |   9000
+ 19 | Paul  |  32 | California                                         |  20000
+(6 rows)
+
+
+
+
+Sub Queries:-A subquery or Inner query or Nested query is a query within another .
+SELECT Query
+testdb=# SELECT *
+testdb-#    FROM COMPANY
+testdb-#    WHERE ID IN (SELECT ID
+testdb(#       FROM COMPANY
+testdb(#       WHERE SALARY > 45000) ;
+ id | name | age |                      address                       | salary 
+----+------+-----+----------------------------------------------------+--------
+  8 | Paul |  24 | norway                                             |  59000
+(1 row)
+
+testdb=# 
+
+INSERT Query:-
+testdb=# INSERT INTO COMPANY_BKP
+   SELECT * FROM COMPANY
+   WHERE ID IN (SELECT ID
+      FROM COMPANY) ;
+
+UPDATE Query:-
+testdb=# UPDATE COMPANY
+   SET SALARY = SALARY * 0.50
+   WHERE AGE IN (SELECT AGE FROM COMPANY_BKP
+      WHERE AGE >= 27 );
+
+DELETE Query:-
+DELETE FROM COMPANY
+   WHERE AGE IN (SELECT AGE FROM COMPANY_BKP
+      WHERE AGE > 27 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
